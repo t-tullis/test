@@ -21,6 +21,16 @@ server.post('/users', async (req, res) => {
     }
 })
 
+/* @oas [get] /users
+ * description: "Gets all users"
+ * base: "/"
+ * responses:
+ *   "200":
+ *     description: "A list of users."
+ *     schema:
+ *       type: "String"
+ */
+
 server.get('/users', async (req, res) => {
         const allUsers = await Users.find({})
         .lean()
