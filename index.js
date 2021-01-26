@@ -9,6 +9,3 @@ connectDB();
 server.listen(port, () => {
     console.log(`server listening to port:${port}`)
 })
-
-
-routes.get('/pets/:category', getPets);
