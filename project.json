@@ -19,6 +19,7 @@
           "Users"
         ],
         "summary": "Returns Users",
+        "operationId": "getAllUsers",
         "description": "Returns the users",
         "responses": {
           "200": {
@@ -81,6 +82,34 @@
             "description": "User with that email does not exist"
           }
         }
+      }
+    },
+    "/users/delete/{email}":{
+      "delete": {
+        "tags":[
+          "Users"
+        ],
+        "summary": "Deletes a user",
+        "operationId": "deleteUserByEmail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "description": "The email that needs to be used to fetch and delete. Try hitting the end point that returns all users and pick an email to delete. ",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+          ],
+          "responses": {
+            "200": {
+              "description": "User deleted"
+            },
+            "400": {
+              "description": "User with that email does not exist"
+            }
+          }
       }
     }
   },
