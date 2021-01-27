@@ -19,7 +19,7 @@ server.post('/users/create', async (req, res) => {
     
     try{
         const createdUser = await Users.create(createUser)
-        res.status(201).json(createdUser)
+        res.status(201).json({createdUser: createdUser})
     }
     catch{
         res.status(400).json({message: 'There was an error creating your user. Email and Password are required'})
@@ -53,7 +53,7 @@ server.delete('/users/delete/:email', async (req, res) => {
         })
         .lean()
         .exec()
-        res.status(200).json(findUserAndDelete)
+        res.status(200).json({userDeleted: findUserAndDelete})
     }
     catch {
         res.status(404).json({message: "The user with that email does not exist"})
