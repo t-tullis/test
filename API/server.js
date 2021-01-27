@@ -10,6 +10,7 @@ server.get('/', (req, res) => {
     res.send('ReadMe Testing API')
 })
 
+//Creates A User
 server.post('/users/create', async (req, res) => {
     const createUser = req.body
     //creates bcrypt hashed password and sets user password to hash
@@ -25,6 +26,7 @@ server.post('/users/create', async (req, res) => {
     }
 })
 
+//Retrieves a user by email
 server.get('/users/:email', async (req, res) => {
     const findEmail = req.params.email
 
@@ -40,16 +42,25 @@ server.get('/users/:email', async (req, res) => {
         res.status(404).json({message: "The user with this email does not exist"})
     }
 })
-/* @oas [get] /users
- * description: "Gets all users"
- * base: "/"
- * responses:
- *   "200":
- *     description: "A list of users."
- *     schema:
- *       type: "String"
- */
 
+//deletes a user by email
+server.delete('/users/:email', async (req, res) => {
+    const findEmail = req.params.email
+
+    try{
+        const findUserAndDelete = await Users.findOneAndDelete({
+            "email": findEmail
+        })
+        .lean()
+        .exec()
+        res.status(200).json(findUserAndDelete)
+    }
+    catch {
+        res.status(404).json({message: "The user with that email does not exist"})
+    }
+})
+
+//Retrieves all users
 server.get('/users', async (req, res) => {
         const allUsers = await Users.find({})
         .lean()
@@ -59,4 +70,3 @@ server.get('/users', async (req, res) => {
 
 
 module.exports = server
-
