@@ -27,10 +27,38 @@
         }
       }
     },
+    "/users/create": {
+      "post": {
+        "tags":[
+          "Users"
+        ],
+        "summary": "Creates a User",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "Creates a new user object ",
+          "required": true,
+          "content": {
+            "application/json" : {
+              "schema": {
+                    "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User Created"
+          },
+          "400": {
+            "description": "Error creating user password and email required"
+          }
+        }
+      }
+    },
     "/users/{email}": {
       "get": {
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Returns a user with a specific email",
         "operationId": "getUserByEmail",
@@ -52,6 +80,25 @@
           "404": {
             "description": "User with that email does not exist"
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
       }
     }

@@ -10,7 +10,7 @@ server.get('/', (req, res) => {
     res.send('ReadMe Testing API')
 })
 
-server.post('/users', async (req, res) => {
+server.post('/users/create', async (req, res) => {
     const createUser = req.body
     //creates bcrypt hashed password and sets user password to hash
     const hash = bcrypt.hashSync(createUser.password, 10)
@@ -59,3 +59,4 @@ server.get('/users', async (req, res) => {
 
 
 module.exports = server
+
