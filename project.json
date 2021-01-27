@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "test",
+    "license": {
+      "name": "ISC"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://powerful-savannah-96936.herokuapp.com"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags":[
+          "Users"
+        ],
+        "summary": "Returns Users",
+        "description": "Returns the users",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/{email}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Returns a user with a specific email",
+        "operationId": "getUserByEmail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "description": "The email that needs to be used to fetch. Use test2@gmail.com to test. ",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+          ],
+        "responses": {
+          "200": {
+            "description": "User found"
+          },
+          "404": {
+            "description": "User with that email does not exist"
+          }
+        }
+      }
+    }
+  }
+}
+
