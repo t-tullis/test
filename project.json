@@ -40,7 +40,7 @@
           "content": {
             "application/json" : {
               "schema": {
-                    "$ref": "#/definitions/User"
+                    "$ref": "#/components/schemas/User"
               }
             }
           }
@@ -84,21 +84,30 @@
       }
     }
   },
-  "definitions": {
-    "User": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string"
-        },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "required": [
+          "email", "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "user's email"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "user's first name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "user's last name"
+          },
+          "password": {
+            "type": "string",
+            "description": "user's password"
+          }
         }
       }
     }
