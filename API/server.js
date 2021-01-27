@@ -44,7 +44,7 @@ server.get('/users/:email', async (req, res) => {
 })
 
 //deletes a user by email
-server.delete('/users/:email', async (req, res) => {
+server.delete('/users/delete/:email', async (req, res) => {
     const findEmail = req.params.email
 
     try{
