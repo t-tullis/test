@@ -36,10 +36,15 @@ server.get('/users/:email', async (req, res) => {
         })
         .lean()
         .exec()
+        
+        if(findUserByEmail === null){
+            res.status(404).json({message: "The user with this email doesn't exist"})
+        }else{
         res.status(200).json(findUserByEmail)
+        }
     }
     catch{
-        res.status(404).json({message: "The user with this email does not exist"})
+        res.status(404).json({message: "There was an error trying to find the user"})
     }
 })
 
@@ -53,10 +58,14 @@ server.delete('/users/delete/:email', async (req, res) => {
         })
         .lean()
         .exec()
-        res.status(200).json({userDeleted: findUserAndDelete})
+        if(findUserAndDelete === null){
+            res.status(404).json({message: "The user with this email doesn't exist"})
+        }else{
+            res.status(200).json({userDeleted: findUserAndDelete})
+        }
     }
     catch {
-        res.status(404).json({message: "The user with that email does not exist"})
+        res.status(404).json({message: "There was an error finding or deleting this"})
     }
 })
 
@@ -77,7 +86,12 @@ server.put('/users/update/:email', async (req, res) => {
         })
         .lean()
         .exec()
-        res.status(200).json({updateUser: findUserAndUpdate})
+        
+        if(findUserAndUpdate === null){
+            res.status(404).json({error: "The user you're trying to update doesn't exist."})
+        }else{
+            res.status(200).json({updateUser: findUserAndUpdate})
+        }
     }
     catch {
         res.status(404).json({message: "The user with that email does not exist"})
