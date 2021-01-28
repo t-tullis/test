@@ -38,7 +38,7 @@ server.get('/users/:email', async (req, res) => {
         .exec()
         
         if(findUserByEmail === null){
-            res.status(404).json({message: "The user with this email doesn't exist"})
+            res.status(404).json({error: "The user with this email doesn't exist"})
         }else{
         res.status(200).json(findUserByEmail)
         }
@@ -59,7 +59,7 @@ server.delete('/users/delete/:email', async (req, res) => {
         .lean()
         .exec()
         if(findUserAndDelete === null){
-            res.status(404).json({message: "The user with this email doesn't exist"})
+            res.status(404).json({error: "The user with this email doesn't exist"})
         }else{
             res.status(200).json({userDeleted: findUserAndDelete})
         }
@@ -86,7 +86,7 @@ server.put('/users/update/:email', async (req, res) => {
         })
         .lean()
         .exec()
-        
+
         if(findUserAndUpdate === null){
             res.status(404).json({error: "The user you're trying to update doesn't exist."})
         }else{
