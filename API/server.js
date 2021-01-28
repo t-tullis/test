@@ -60,6 +60,32 @@ server.delete('/users/delete/:email', async (req, res) => {
     }
 })
 
+//Update a user by email
+server.put('/users/update/:email', async (req, res) => {
+    const findEmail = req.params.email
+    const updateUser = req.body
+
+    try{
+        const findUserAndUpdate = await Users.findOneAndUpdate({
+            "email": findEmail
+        }, 
+        {
+            $set: updateUser
+        },
+        {
+            returnOriginal: false
+        })
+        .lean()
+        .exec()
+        res.status(200).json({updateUser: findUserAndUpdate})
+    }
+    catch {
+        res.status(404).json({message: "The user with that email does not exist"})
+    }
+})
+
+
+
 //Retrieves all users
 server.get('/users', async (req, res) => {
         const allUsers = await Users.find({})
