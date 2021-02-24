@@ -18,7 +18,7 @@
         "tags":[
           "Users"
         ],
-        "summary": "Returns Users testing update with github actions",
+        "summary": "Returns Users",
         "operationId": "getAllUsers",
         "description": "Returns the users",
         "responses": {
