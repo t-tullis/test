@@ -15,7 +15,7 @@ server.post('/users/create', async (req, res) => {
     const createUser = req.body
     //creates bcrypt hashed password and sets user password to hash
     const hash = bcrypt.hashSync(createUser.password, 10)
-    createUser.password = hash
+    createUser.password = hash 
     
     try{
         const createdUser = await Users.create(createUser)
