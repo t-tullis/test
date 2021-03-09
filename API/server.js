@@ -9,8 +9,8 @@ server.use(express.json());
 
 server.use(
     readme.metrics('4Yaj9BBcmtorm5fXjMRtSOWTLOz7sewJ', req => ({
-      id: req._id,
-      label: req.email,
+      id: req.id,
+      label: req.label,
       email: req.email,
     }), {
       development: true, // optional, sends logs to Development Data
