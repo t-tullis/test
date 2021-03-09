@@ -1,21 +1,21 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const Users = require('../DB/User.js')
-const readme = require('readmeio');
+// const readme = require('readmeio');
 
 const server = express();
 
 server.use(express.json());
 
-server.use(
-    readme.metrics('4Yaj9BBcmtorm5fXjMRtSOWTLOz7sewJ', req => ({
-      id: req.id,
-      label: req.label,
-      email: req.email,
-    }), {
-      development: true, // optional, sends logs to Development Data
-    })
-  );
+// server.use(
+//     readme.metrics('4Yaj9BBcmtorm5fXjMRtSOWTLOz7sewJ', req => ({
+//       id: req.id,
+//       label: req.label,
+//       email: req.email,
+//     }), {
+//       development: true, // optional, sends logs to Development Data
+//     })
+//   );
 
 server.get('/', (req, res) => {
     res.send('ReadMe Testing API')
