@@ -25,6 +25,7 @@
     "mongoose": "^5.11.10",
     "nodemon": "^2.0.6",
     "rdme": "^3.8.2",
+    "readmeio": "^4.0.2",
     "swagger-cli": "^4.0.4",
     "swagger-inline": "^3.2.2"
   }
