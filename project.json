@@ -132,48 +132,6 @@
           }
       }
     },
-    "/api/public/merchants": {
-      "get": {
-        "tags": [
-          "Users"
-      ],
-      "summary": "Get all merchants",
-      "operationId": "Merchant Management",
-      "responses": {
-        "401": {
-          "description": "Unauthorized"
-      },
-      "500": {
-        "description": "Server Error"
-      },
-      "200": {
-        "description": "Success",
-      "content": {
-      "text/plain": {
-      "schema": {
-      "$ref": "#/components/schemas/AllMerchantsResult"
-      }
-      },
-      "application/json": {
-      "schema": {
-      "$ref": "#/components/schemas/AllMerchantsResult"
-      }
-      },
-      "text/json": {
-      "schema": {
-      "$ref": "#/components/schemas/AllMerchantsResult"
-      }
-      }
-      }
-      }
-      },
-      "security": [
-      {
-      "Protected Api Token": [ ]
-      }
-      ]
-      }
-  },
   "components": {
     "schemas": {
       "SecurityReq": {
