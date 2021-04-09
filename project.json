@@ -15,7 +15,7 @@
   "paths": {
     "/users": {
       "get": {
-        "tags":[
+        "tags": [
           "Users"
         ],
         "summary": "Returns Users",
@@ -23,32 +23,65 @@
         "description": "Returns the users",
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json" : {
-                "schema": {
-                      "$ref": "#/components/schemas/SecurityReq"
-                }
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/update/{email}": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Updates a User",
+        "operationId": "updateUser",
+        "description": "Updates the specific user by email. All fields aren't required to update the user object",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The email used to fetch the User to update"
+          }
+        ],
+        "requestBody": {
+          "description": "Updates a user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Update"
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated a user"
+          },
+          "404": {
+            "description": "The User you are trying to update doesn't exist"
           }
         }
       }
     },
     "/users/create": {
       "post": {
-        "tags":[
+        "tags": [
           "Users"
         ],
         "summary": "Creates a User",
         "operationId": "createUser",
+        "description": "Creates a new user",
         "requestBody": {
           "description": "Creates a new user object ",
           "required": true,
           "content": {
-            "application/json" : {
+            "application/json": {
               "schema": {
-                    "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/User"
               }
             }
           }
@@ -70,6 +103,7 @@
         ],
         "summary": "Returns a user with a specific email",
         "operationId": "getUserByEmail",
+        "description": "Returns a user by a specific email",
         "parameters": [
           {
             "in": "path",
@@ -80,7 +114,7 @@
             },
             "required": true
           }
-          ],
+        ],
         "responses": {
           "200": {
             "description": "User found"
@@ -91,13 +125,14 @@
         }
       }
     },
-    "/users/delete/{email}":{
+    "/users/delete/{email}": {
       "delete": {
-        "tags":[
+        "tags": [
           "Users"
         ],
         "summary": "Deletes a user",
         "operationId": "deleteUserByEmail",
+        "description": "Deletes a user by the specified email given",
         "parameters": [
           {
             "in": "path",
@@ -108,45 +143,25 @@
             },
             "required": true
           }
-          ],
-          "responses": {
-            "200": {
-              "description": "User deleted",
-              "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "description": "The user ID",
-                  "username": {
-                  "type": "string",
-                  "description": "The user name."
-                }
-              }
-            }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          },
+          "400": {
+            "description": "User with that email does not exist"
           }
-        },
-            "400": {
-              "description": "User with that email does not exist"
-            }
-          }
+        }
       }
-    },
+    }
+  },
   "components": {
     "schemas": {
-      "SecurityReq": {
-        "type": "array",
-        "properties": {
-          "authFlags": [
-            "dev", 
-            "admin"
-          ]
-        }
-      },
       "User": {
         "type": "object",
         "required": [
-          "email", "password"
+          "email",
+          "password"
         ],
         "properties": {
           "email": {
@@ -166,9 +181,36 @@
             "description": "user's password"
           }
         }
+      },
+      "Update": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "User's first name to update"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "User's last name to update"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password to update"
+          }
+        }
       }
     }
+  },
+  "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true,
+    "samples-enabled": true,
+    "samples-languages": [
+      "curl",
+      "node",
+      "ruby",
+      "javascript",
+      "python"
+    ]
   }
 }
-}
-
