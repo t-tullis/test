@@ -20,7 +20,7 @@
         ],
         "summary": "Returns Users",
         "operationId": "getAllUsers",
-        "description": "Returns the users",
+        "description": "Returns the users \n plus this new line of text",
         "responses": {
           "200": {
             "description": ""
