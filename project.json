@@ -210,7 +210,9 @@
       "node",
       "ruby",
       "javascript",
-      "python"
+      "python",
+      "r",
+      "php"
     ]
   }
 }
