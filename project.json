@@ -18,9 +18,9 @@
         "tags": [
           "Users"
         ],
-        "summary": "account_accountcreate",
+        "summary": "Retrieves All Users",
         "operationId": "getAllUsers",
-        "description": "Creates an account. \n Authentication: Developer",
+        "description": "Collects all users ",
         "responses": {
           "200": {
             "description": ""
