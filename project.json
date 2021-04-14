@@ -23,7 +23,7 @@
         "description": "Collects all users ",
         "responses": {
           "200": {
-            "description": ""
+            "description": "All good! Users will be displayed here"
           }
         }
       }
