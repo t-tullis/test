@@ -211,8 +211,9 @@
       "ruby",
       "javascript",
       "python",
-      "typescript",
-      "php"
+      "c",
+      "php",
+      "swift"
     ]
   }
 }
