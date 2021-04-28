@@ -72,7 +72,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Creates a User",
+        "summary": "Creates a User  \n also an update for version 1.0.2",
         "operationId": "createUser",
         "description": "Creates a new user",
         "requestBody": {
@@ -211,7 +211,6 @@
       "ruby",
       "javascript",
       "python",
-      "c",
       "php",
       "swift"
     ]
