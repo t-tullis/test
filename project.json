@@ -18,7 +18,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Retrieves All Users In DB",
+        "summary": "Retrieves All Users(Changes in first file)",
         "operationId": "getAllUsers",
         "description": "Collects all users ",
         "responses": {
