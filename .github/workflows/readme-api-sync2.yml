@@ -13,4 +13,4 @@ jobs:
         with:
           readme-oas-key: ${{ secrets.README_OAS_KEY_V2}}
           oas-file-path: '../project2.json'
-          api-version: 'v1.0.3'
+          api-version: 'v1.0.1'
