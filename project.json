@@ -146,7 +146,7 @@
         ],
         "responses": {
           "200": {
-            "description": "User deleted"
+            "description": "User was deleted"
           },
           "400": {
             "description": "User with that email does not exist"
