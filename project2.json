@@ -33,7 +33,7 @@
           "tags": [
             "Users"
           ],
-          "summary": "Updates a User",
+          "summary": "Updates an User",
           "operationId": "updateUser",
           "description": "Updates the specific user by email. All fields aren't required to update the user object",
           "parameters": [
