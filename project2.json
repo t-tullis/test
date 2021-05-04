@@ -1,0 +1,259 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+      "title": "Files",
+      "description": "Readme API spec doc: Files",
+      "termsOfService": "#",
+      "version": "1.0"
+    },
+    "servers": [
+      {
+        "url": "https://api.scale.com/v1"
+      }
+    ],
+    "security": [
+        {
+            "basicAuth": []
+        }
+    ],
+    "paths": {
+      "/files/upload": {
+        "post": {
+          "tags": [
+            "File Overview"
+          ],
+          "summary": "File Upload",
+          "operationId": "file-upload",
+          "requestBody": {
+            "description": "Body Parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileUpload"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResFileUpload"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request -- The request was unacceptable, often due to missing a required parameter."
+            },
+            "401": {
+              "description": "Unauthorized -- No valid API key provided."
+            },
+            "500": {
+              "description": "Internal Error"
+            }
+          }
+        }
+      },
+      "/files/import": {
+        "post": {
+          "tags": [
+            "File Overview"
+          ],
+          "summary": "File Import",
+          "operationId": "file-import",
+          "requestBody": {
+            "description": "Body Parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileImport"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResFileImport"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request -- The request was unacceptable, often due to missing a required parameter."
+            },
+            "401": {
+              "description": "Unauthorized -- No valid API key provided."
+            },
+            "500": {
+              "description": "Internal Error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "FileUpload": {
+          "required": [
+            "file"
+          ],
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "description": "The local file to be uploaded.",
+              "default": "@file.png"
+            },
+            "id": {
+              "type": "string",
+              "description": "The unique identification for the file. Provide the same id to overwrite an existing file."
+            },
+            "display_name": {
+              "type": "string",
+              "description": "A human readable name for the file.",
+              "default": "file_name"
+            },
+            "project_name": {
+              "type": "string",
+              "description": "Which project this file will be associated with. This is only used for our \"Self Serve\" data labeling tool. In order to upload the same file to multiple projects, call the File Upload API multiple times with the same id and different project_name values."
+            },
+            "metadata": {
+              "type": "object",
+              "description": "A JSON blob used to store additional data associated with the file."
+            }
+          }
+        },
+        "ResFileUpload": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "default": "8429a744-74cf-4628-b90d-b977dd149b08"
+            },
+            "display_name": {
+              "type": "string",
+              "default": "file_name"
+            },
+            "metadata": {
+              "type": "string"
+            },
+            "mime_type": {
+              "type": "string",
+              "default": "image/png"
+            },
+            "project_names": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": "kitten_labeling"
+              }
+            },
+            "size": {
+              "type": "integer",
+              "default": 1000000
+            },
+            "created_at": {
+              "type": "string",
+              "default": "2021-03-17T02:19:45.683Z"
+            },
+            "updated_at": {
+              "type": "string",
+              "default": "2021-03-17T02:19:45.683Z"
+            },
+            "attachment_url": {
+              "type": "string",
+              "description": "The attachment_url can be used in place of attachments for task submission."
+            }
+          }
+        },
+        "FileImport": {
+          "required": [
+            "file_url"
+          ],
+          "type": "object",
+          "properties": {
+            "file_url": {
+              "type": "string",
+              "description": "The file url to be uploaded.",
+              "default": "http://www.example.com/file.png"
+            },
+            "id": {
+              "type": "string",
+              "description": "The unique identification for the file. Provide the same id to overwrite an existing file."
+            },
+            "display_name": {
+              "type": "string",
+              "description": "A human readable name for the file.",
+              "default": "file_name"
+            },
+            "project_name": {
+              "type": "string",
+              "description": "Which project this file will be associated with. This is only used for our \"Self Serve\" data labeling tool. In order to upload the same file to multiple projects, call the File Upload API multiple times with the same id and different project_name values."
+            },
+            "metadata": {
+              "type": "object",
+              "description": "A JSON blob used to store additional data associated with the file."
+            }
+          }
+        },
+        "ResFileImport": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "default": "8429a744-74cf-4628-b90d-b977dd149b08"
+            },
+            "display_name": {
+              "type": "string",
+              "default": "file_name"
+            },
+            "metadata": {
+              "type": "string"
+            },
+            "mime_type": {
+              "type": "string",
+              "default": "image/png"
+            },
+            "project_names": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": "kitten_labeling"
+              }
+            },
+            "size": {
+              "type": "integer",
+              "default": 1000000
+            },
+            "created_at": {
+              "type": "string",
+              "default": "2021-03-17T02:19:45.683Z"
+            },
+            "updated_at": {
+              "type": "string",
+              "default": "2021-03-17T02:19:45.683Z"
+            },
+            "attachment_url": {
+              "type": "string",
+              "description": "The attachment_url can be used in place of attachments for task submission."
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "basicAuth": {
+          "type": "http",
+          "scheme": "basic"
+        }
+      }
+    }
+  }
