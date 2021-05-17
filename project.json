@@ -5,7 +5,8 @@
     "title": "test",
     "license": {
       "name": "ISC"
-    }
+    },
+    "description": "Lets see what appears?"
   },
   "servers": [
     {
@@ -31,7 +32,7 @@
     "/users/update/{email}": {
       "put": {
         "tags": [
-          "Users"
+          "Testing"
         ],
         "summary": "Updates a User",
         "operationId": "updateUser",
@@ -70,7 +71,7 @@
     "/users/create": {
       "post": {
         "tags": [
-          "Users"
+          "Testing"
         ],
         "summary": "Creates a User  \n also an update for version 1.0.2",
         "operationId": "createUser",
