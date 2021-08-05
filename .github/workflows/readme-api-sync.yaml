@@ -12,5 +12,5 @@ jobs:
       - uses: readmeio/github-readme-sync@v2
         with:
           readme-oas-key: ${{secrets.README_OAS_KEY}}
-          oas-file-path: '../project.json'
-          api-version: 'v1.0.3'
+          oas-file-path: '../fusebit-swagger.json'
+          api-version: 'v1.0'
