@@ -1,0 +1,741 @@
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/v1/carriers":
+    get:
+      summary: List all the carriers
+      tags:
+      - References
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/v1/coverage_types":
+    get:
+      summary: List coverage types
+      tags:
+      - References
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/v1/insureds":
+    post:
+      summary: Create insured
+      tags:
+      - Insureds
+      security:
+      - bearer_auth: []
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Insured"
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocesseable Entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: The email for the insured
+                first_name:
+                  type: string
+                  description: First name of the insured.
+                last_name:
+                  type: string
+                  description: Last name of the insured.
+                business_name:
+                  type: string
+                  description: Business name. Either first + last name or business
+                    name is required.
+                phone:
+                  type: string
+                  description: 'Phone number. Formatted: 5555555555'
+                mailing_address_street_one:
+                  type: string
+                  description: Mailing Street address
+                mailing_address_street_two:
+                  type: string
+                  description: Suite or unit
+                mailing_address_city:
+                  type: string
+                  description: Mailing city
+                mailing_address_state:
+                  type: string
+                  description: Mailing state
+                mailing_address_zip_code:
+                  type: string
+                  description: Mailing zip code
+                assignee_id:
+                  type: string
+                  format: uuid
+                  description: The id of the user(agent) insured is assigned to.
+              required:
+              - email
+              - mailing_address_city
+              - mailing_address_state
+              - mailing_address_street_one
+              - mailing_address_zip_code
+              - assignee_id
+    get:
+      summary: Get Insureds
+      tags:
+      - Insureds
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/v1/insureds/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: The id of the insured
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show Insured
+      tags:
+      - Insureds
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Insured"
+  "/v1/invoices":
+    get:
+      summary: Get invoices
+      tags:
+      - Invoices
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: program_id
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+  "/v1/invoices/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show invoice
+      tags:
+      - Invoices
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: not found
+  "/v1/loans":
+    get:
+      summary: List all loans for organization
+      tags:
+      - Loans
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: status
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Loans found
+  "/v1/loans/{id}":
+    get:
+      summary: Show loan
+      tags:
+      - Loans
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: id
+        in: path
+        description: The id of the loan
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: return loan with id
+        '404':
+          description: Loan not found
+  "/v1/organizations/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: organization id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show organization
+      tags:
+      - Organizations
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: Organization found
+        '404':
+          description: Organization not found if id and session token mismatch
+        '401':
+          description: Unauthorized
+  "/v1/programs":
+    get:
+      summary: List programs
+      tags:
+      - Programs
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: insured_id
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: Create program
+      tags:
+      - Programs
+      security:
+      - bearer_auth: []
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Program"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                insured_id:
+                  type: string
+                  format: uuid
+                return_url:
+                  type: string
+              required:
+              - insured_id
+  "/v1/programs/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: The id of the program
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show program
+      tags:
+      - Programs
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Program"
+  "/v1/quotes":
+    get:
+      summary: Get all quotes
+      tags:
+      - Quotes
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: program_id
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+    post:
+      summary: Creates a quote
+      tags:
+      - Quotes
+      security:
+      - bearer_auth: []
+      parameters: []
+      responses:
+        '422':
+          description: Unprocessable entity
+        '400':
+          description: Bad Request
+        '201':
+          description: Quote created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Quote"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                program_id:
+                  type: string
+                broker_fee_cents:
+                  type: integer
+                  minimum: 0
+                carrier_identifier:
+                  type: string
+                coverage_identifier:
+                  type: string
+                effective_date:
+                  type: string
+                  format: datetime
+                expiration_date:
+                  type: string
+                  format: datetime
+                is_auditable:
+                  type: boolean
+                is_filed:
+                  type: boolean
+                is_short_rate:
+                  type: boolean
+                min_earned_rate:
+                  type: number
+                  format: float
+                other_fees_cents:
+                  type: integer
+                  minimum: 0
+                policy_fee_cents:
+                  type: integer
+                  minimum: 0
+                policy_number:
+                  type: string
+                premium_cents:
+                  type: integer
+                  minimum: 0
+                quote_identifier:
+                  type: string
+                taxes_and_fees_cents:
+                  type: integer
+                  minimum: 0
+                attachments:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                    required:
+                    - url
+              required:
+              - program_id
+              - effective_date
+              - quote_identifier
+              - premium_cents
+              - coverage_identifier
+              - carrier_identifier
+  "/v1/quotes/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: The quote identifier
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: Updates a quote
+      tags:
+      - Quotes
+      security:
+      - bearer_auth: []
+      parameters: []
+      responses:
+        '200':
+          description: Quote updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Quote"
+        '422':
+          description: Unprocessable entity
+        '404':
+          description: Quote not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                broker_fee_cents:
+                  type: integer
+                  minimum: 0
+                carrier_name:
+                  type: string
+                coverage_identifier:
+                  type: string
+                effective_date:
+                  type: string
+                  format: datetime
+                expiration_date:
+                  type: string
+                  format: datetime
+                is_auditable:
+                  type: boolean
+                is_filed:
+                  type: boolean
+                is_short_rate:
+                  type: boolean
+                min_earned_rate:
+                  type: number
+                  format: float
+                other_fees_cents:
+                  type: integer
+                  minimum: 0
+                policy_fee_cents:
+                  type: integer
+                  minimum: 0
+                policy_number:
+                  type: string
+                premium_cents:
+                  type: integer
+                  minimum: 0
+                quote_identifier:
+                  type: string
+                taxes_and_fees_cents:
+                  type: integer
+                  minimum: 0
+                attachments:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                    required:
+                    - url
+    delete:
+      summary: Deletes a quote
+      tags:
+      - Quotes
+      security:
+      - bearer_auth: []
+      responses:
+        '204':
+          description: Quote deleted
+        '422':
+          description: Unprocessable Entity
+        '404':
+          description: Quote not found
+  "/v1/users":
+    get:
+      summary: List organization users
+      tags:
+      - Users
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+  schemas:
+    Carrier:
+      type: object
+      description: An insurance company.
+      properties:
+        identifier:
+          type: string
+          description: A human readable unique identifier.
+        title:
+          type: string
+          description: The carrier display name.
+    CoverageType:
+      type: object
+      description: A type of coverage.
+      properties:
+        identifier:
+          type: string
+          description: A human readable unique identifier.
+        title:
+          type: string
+          description: The coverage type display name.
+    Insured:
+      type: object
+      description: Represents the person or business entity that is purchasing the
+        collection of insurance quotes.
+      properties:
+        email:
+          type: string
+          format: email
+          description: The email for the insured
+        first_name:
+          type: string
+          nullable: true
+          description: First name of the insured.
+        last_name:
+          type: string
+          nullable: true
+          description: Last name of the insured.
+        business_name:
+          type: string
+          nullable: true
+          description: Business name. Either first + last name or business name is
+            required.
+        phone:
+          type: string
+          nullable: true
+          description: Phone number of the insured
+        mailing_address_street_one:
+          type: string
+          description: Mailing Street address
+        mailing_address_street_two:
+          type: string
+          nullable: true
+          description: Suite or unit
+        mailing_address_city:
+          type: string
+          description: Mailing city
+        mailing_address_state:
+          type: string
+          description: Mailing state
+        mailing_address_zip_code:
+          type: string
+          description: Mailing zip code
+    Program:
+      type: object
+      description: A collection of insurance quotes pooled to produce 1 checkout link.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the program
+        archived_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date the program was archived. The date uses UTC and is
+            represented in the iso8601 format.
+        checkedout_at:
+          type: string
+          nullable: true
+          format: date-time
+          description: The date the program was checked out. The date uses UTC and
+            is represented in the iso8601 format.
+        created_at:
+          type: string
+          format: date-time
+          description: The date the program was created. The date uses UTC and is
+            represented in the iso8601 format.
+        premium_cents:
+          type: integer
+          description: The total premium that the insured should pay for the program.
+            This represents the premium sum of each quote associated to this program.
+            The value is represented in cents.
+        program_url:
+          type: string
+          description: A URL to complete the checkout process.
+        return_url:
+          type: string
+          nullable: true
+          description: A URL to send the user back to after completing the checkout
+            process.
+        selected_payment_option_type:
+          type: string
+          nullable: true
+          description: The payment option chosen by the insured during the checkout
+            process.
+        status:
+          type: string
+          enum:
+          - archived
+          - purchased
+          - checked_out
+          - elected
+          - ready_for_checkout
+          - created
+          description: The state of the program
+        sub_total_cents:
+          type: integer
+          description: The amount to be payed by the insured including all premium
+            and fees applicable to the program. The value is represented in cents.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date the program was last updated. The date uses UTC and
+            is represented in the iso8601 format.
+        insured:
+          "$ref": "#/components/schemas/Insured"
+    Quote:
+      type: object
+      description: The insurance quote along with premium, carrier, effective date,
+        product & documents.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the quote
+        broker_fee_cents:
+          type: integer
+          description: Any broker fees for the insurance policy if applicable. This
+            fee is treated as non-refundable & fully earned.
+        carrier:
+          "$ref": "#/components/schemas/Carrier"
+        coverage_type:
+          "$ref": "#/components/schemas/CoverageType"
+        effective_date:
+          type: string
+          format: date-time
+          description: The date upon the quote goes into effect. The date uses UTC
+            and is represented in the iso8601 format.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date when the quote is no longer active. The date uses
+            UTC and is represented in the iso8601 format.
+        is_auditable:
+          type: boolean
+          description: Determines if the carrier can audit customer raising premium
+            significantly.
+        is_filed:
+          type: boolean
+          description: Determines if specific lines of business are filed with other
+            bureaus which they have to notify on cancelation.
+        is_short_rate:
+          type: boolean
+          description: 'Determines if the policy is fined by 10% on top of earned
+            premium when insured cancels '
+        min_earned_rate:
+          type: number
+          format: float
+          description: The minimum rate to charge insureds when they decide to finance.
+        other_fees_cents:
+          type: integer
+          description: Any additional fees that come with the policy. This fee is
+            treated as non-refundable & fully earned.
+        policy_fee_cents:
+          type: integer
+          description: Any policy fees that come with the quote. This fee is treated
+            as non-refundable & fully earned.
+        policy_number:
+          type: string
+          nullable: true
+          description: The number assigned to the policy once it has been bound.
+        premium_cents:
+          type: integer
+          description: The amount to pay for the insurance policy.
+        quote_docs:
+          type: array
+          description: A collection of documents associated with the quote.
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                description: The display name of the static asset.
+                nullable: true
+              url:
+                type: string
+                description: The url to access the static asset.
+        quote_identifier:
+          type: string
+          description: The identifier assigned to the quote by the organization.
+        taxes_and_fees_cents:
+          type: integer
+          description: Any taxes & unearned fees. Taxes and fees are financed.
+        seller_commission_rate:
+          type: number
+          format: float
+          nullable: true
+          description: Your commission rate for this policy.
+        min_days_to_cancel:
+          type: integer
+          description: Set state determined extended cancelation period for the policy.
+servers:
+- url: https://staging-backend-se.herokuapp.com
+tags:
+- name: Organizations
+  description: Represent agencies, MGAs or carriers.
+- name: Loans
+  description: Loan details for a financed program
+- name: Quotes
+  description: The insurance quote along with premium, carrier, effective date, product
+    & documents.
+- name: Programs
+  description: A collection of insurance quotes pooled to produce 1 checkout link.
+- name: Users
+  description: Represent users that manage programs. They can be analysts, producers,
+    support & admins.
+- name: References
+  description: Provides resources needed for looking up quotes, coverage types etc.
+- name: Insureds
+  description: Represents the person or business entity that is purchasing the collection
+    of insurance quotes.
