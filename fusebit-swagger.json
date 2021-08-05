@@ -71,7 +71,7 @@
           "tags": [
             "Operation"
           ],
-          "summary": "Create a new operation",
+          "summary": "Create a new operation TESTING",
           "operationId": "postNewOperation",
           "description": "Creates a new operation using the payload as the operation status.\n",
           "requestBody": {
