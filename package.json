@@ -22,10 +22,11 @@
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "fetch": "^1.1.0",
     "mongoose": "^5.11.10",
-    "nodemon": "^2.0.6",
+    "nodemon": "^2.0.22",
     "rdme": "^3.8.2",
-    "readmeio": "^4.0.2",
+    "readmeio": "^6.0.6",
     "swagger-cli": "^4.0.4",
     "swagger-inline": "^3.2.2"
   }

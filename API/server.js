@@ -1,9 +1,39 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const Users = require('../DB/User.js')
-// const readme = require('readmeio');
+const readme = require('readmeio');
 
-const server = express();
+
+const server= express();
+
+// Your ReadMe secret
+const secret = '9bUtP45o3fqLpAifyX80';
+
+server.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
+  // Verify the request is legitimate and came from ReadMe.
+  const signature = req.headers['readme-signature'];
+
+  try {
+    readme.verifyWebhook(req.body, signature, secret);
+  } catch (e) {
+    // Handle invalid requests
+    return res.status(401).json({ error: e.message });
+  }
+
+  // Fetch the user from the database and return their data for use with OpenAPI variables.
+  // const user = await db.find({ email: req.body.email })
+  return res.json({
+    // OAS Security variables
+    api_key: 'api_key',
+    petstore_auth: 'petstore_auth',
+    'The Name here': 'The Name here',
+    TestAuth: 'TestAuth',
+    'X-Access-Client-Id': 'X-Access-Client-Id',
+    'X-Access-Secret': 'X-Access-Secret',
+    apiKey: 'apiKey',
+  });
+});
+
 
 server.use(express.json());
 
